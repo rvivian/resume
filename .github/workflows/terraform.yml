@@ -42,7 +42,7 @@
 #       with:
 #         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-name: 'Terraform'
+name: 'Deploy Resume'
 
 on:
   push:
@@ -54,9 +54,17 @@ permissions:
 
 jobs:
   terraform:
-    name: 'Terraform'
+    env:
+      location: "westus3"
+      environment_name: "dev"
+      location_short_code: "wu3"
+      backendAzureRmContainerName: tfstate
+      backendAzureRmKey: tfdev
+      product: "resume"
+      shortcode: "rs"
+    name: 'Deploy Resume'
     runs-on: ubuntu-latest
-    environment: production
+    environment: dev
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:

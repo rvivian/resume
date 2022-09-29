@@ -1,30 +1,26 @@
 terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "3.24"
-    }
-  }
-  required_version = ">= 1.2.4"
+  backend "azurerm" {}
 }
 
-provider "azurerm" {
-  features {}
+locals {
+  env_prefix              = "${var.shortcode}-${var.product}-${var.envname}-${var.location_short_code}"
+  enf_prefix_no_separator = "${var.shortcode}${var.product}${var.envname}${var.location_short_code}"
 }
 
-resource "azurerm_resource_group" "resume_rg_dev" {
-  location = "westus3"
-  name     = "resume-rg-dev"
+resource "azurerm_resource_group" "rg" {
+  location = var.location
+  name     = "${local.env_prefix}-rg"
 }
 
-resource "azurerm_storage_account" "resume_storage_dev" {
-  name                             = "rvresumewebdev"
-  resource_group_name              = azurerm_resource_group.resume_rg_dev.name
-  location                         = azurerm_resource_group.resume_rg_dev.location
+resource "azurerm_storage_account" "storage_account" {
+  name                             = local.env_prefix_no_separator
+  resource_group_name              = azurerm_resource_group.rg.name
+  location                         = azurerm_resource_group.rg.location
   access_tier                      = "Cool"
-  account_tier                     = "Standard"
+  account_tier                     = "StandardV2"
   account_replication_type         = "LRS"
   cross_tenant_replication_enabled = false
+  enable_https_traffic_only        = true
   static_website {
     index_document = "index.html"
   }

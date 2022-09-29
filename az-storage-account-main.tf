@@ -3,14 +3,14 @@ terraform {
 }
 
 locals {
-  env_prefix              = "${var.shortcode}-${var.product}-${var.envname}-${var.location_short_code}"
-  env_prefix_no_separator = "${var.shortcode}${var.product}${var.envname}${var.location_short_code}"
-  domain_name             = var.envname == "prod" ? "${var.product}" : "${var.product}-${var.envname}"
+  env_prefix              = "${env.shortcode}-${env.product}-${env.envname}-${env.location_short_code}"
+  env_prefix_no_separator = "${env.shortcode}${env.product}${env.envname}${env.location_short_code}"
+  domain_name             = env.envname == "prod" ? "${env.product}" : "${env.product}-${env.envname}"
 
 }
 
 resource "azurerm_resource_group" "rg" {
-  location = var.location
+  location = env.location
   name     = "${local.env_prefix}-rg"
 }
 

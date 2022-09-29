@@ -33,7 +33,7 @@ resource "azurerm_storage_blob" "blob" {
 
   name                   = trimprefix(each.key, "site_data/")
   storage_account_name   = azurerm_storage_account.storage_account.name
-  storage_container_name = azurerm_storage_container.web_container.name
+  storage_container_name = "`$web"
   type                   = "Block"
   content_md5            = filemd5(each.key)
   source                 = each.key

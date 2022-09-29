@@ -28,12 +28,6 @@ resource "azurerm_storage_account" "storage_account" {
   }
 }
 
-resource "azurerm_storage_container" "web_container" {
-  name                  = "$web"
-  container_access_type = "private"
-  storage_account_name  = azurerm_storage_account.storage_account.name
-}
-
 resource "azurerm_storage_blob" "blob" {
   for_each = fileset(path.module, "site_data/*")
 
@@ -64,7 +58,6 @@ resource "azurerm_cdn_endpoint" "cdn_endpoint" {
     https_port = 443
   }
   origin_host_header     = "${local.env_prefix_no_separator}.z1.web.core.windows.net"
-  is_compression_enabled = true
 }
 
 resource "azurerm_cdn_endpoint_custom_domain" "custom_domain" {

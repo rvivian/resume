@@ -56,7 +56,7 @@ jobs:
   terraform:
     env:
       location: "westus3"
-      environment_name: "dev"
+      envname: "dev"
       location_short_code: "wu3"
       backendAzureRmContainerName: tfstate
       backendAzureRmKey: tfdev

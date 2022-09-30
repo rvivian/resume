@@ -62,7 +62,7 @@ resource "azurerm_cdn_endpoint" "cdn_endpoint" {
     http_port  = 80
     https_port = 443
   }
-  origin_host_header     = "${local.env_prefix_no_separator}.z1.web.core.windows.net"
+  origin_host_header = "${local.env_prefix_no_separator}.z1.web.core.windows.net"
 }
 
 resource "azurerm_cdn_endpoint_custom_domain" "custom_domain" {

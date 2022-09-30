@@ -98,7 +98,7 @@ jobs:
 
     - name: Get TF output variables
       id: var
-      if: success()
+      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push' && steps.apply.outputs.exit_code == 0
       run: |
         echo "::set-output name=azure_cdn_endpoint::$(terraform output azure_cdn_endpoint)"
         echo "::set-output name=azure_cdn_profile_name::$(terraform output azure_cdn_profile_name)"
@@ -111,12 +111,12 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Purge CDN
-      if: success()
+      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push' && steps.apply.outputs.exit_code == 0
       run: |
         az cdn endpoint purge --name ${{ steps.var.outputs.azure_cdn_endpoint }} --profile-name ${{ steps.var.outputs.azure_cdn_profile_name }} --content-paths "/*" --resource-group ${{ steps.var.outputs.azure_resource_group }} --no-wait
 
       
     - name: Azure SP logout
-      if: success()
+      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push' && steps.apply.outputs.exit_code == 0
       run: |
         az logout

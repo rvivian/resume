@@ -98,6 +98,12 @@ jobs:
       env:
         TF_VAR_arm_secret: ${{ secrets.ARM_CLIENT_SECRET }}
 
+    - name: Set variables
+      run: |
+        azure_cdn_endpoint=$(terraform output azure_cdn_endpoint)
+        azure_cdn_profile_name=$(terraform output azure_cdn_profile_name)
+        azure_resource_group=$(terraform output azure_resource_group)
+
     - name: Azure SP login
       uses: azure/login@v1
       with:
@@ -106,7 +112,7 @@ jobs:
     - name: Purge CDN
       #if: steps.apply.outputs.exit_code == 0
       run:
-        az cdn endpoint purge -n ${{ steps.tfapply.outputs.azure_cdn_endpoint }} --profile-name ${{ steps.tfapply.outputs.azure_cdn_profile_name }} --content-paths "/*" --resource-group ${{ steps.tfapply.outputs.azure_resource_group }} --no-wait
+        az cdn endpoint purge -n $azure_cdn_endpoint --profile-name $azure_cdn_profile_name --content-paths "/*" --resource-group $azure_resource_group --no-wait
 
       
     - name: Azure SP logout

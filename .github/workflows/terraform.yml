@@ -94,7 +94,11 @@ jobs:
     - name: Terraform Apply
       id: apply
       #if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
-      run: terraform apply -auto-approve -input=false
+      run: |
+        terraform apply -auto-approve -input=false
+        azure_cdn_endpoint=$(terraform output -raw azure_cdn_endpoint)
+        azure_cdn_profile_name=$(terraform output -raw azure_cdn_profile_name)
+        azure_resource_group=$(terraform output -raw azure_resource_group)
       env:
         TF_VAR_arm_secret: ${{ secrets.ARM_CLIENT_SECRET }}
 
@@ -102,12 +106,7 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-    - name: Get TF output variables
-      run: |
-        azure_cdn_endpoint=$(terraform output -raw azure_cdn_endpoint)
-        azure_cdn_profile_name=$(terraform output -raw azure_cdn_profile_name)
-        azure_resource_group=$(terraform output -raw azure_resource_group)
+        
 
     - name: Echo variables
       run: |

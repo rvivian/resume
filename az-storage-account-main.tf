@@ -1,5 +1,10 @@
 terraform {
-  backend "azurerm" {}
+  backend "remote" {
+    organization = "northof66"
+    workspaces {
+      name = "resume"
+    }
+  }
 }
 
 locals {

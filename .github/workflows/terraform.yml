@@ -109,16 +109,16 @@ jobs:
         azure_cdn_profile_name=$(terraform output -raw azure_cdn_profile_name)
         azure_resource_group=$(terraform output -raw azure_resource_group)
 
-    - name: Purge CDN
-      #if: steps.apply.outputs.exit_code == 0
-      run: |
-        az cdn endpoint purge -n $azure_cdn_endpoint --profile-name $azure_cdn_profile_name --content-paths "/*" --resource-group $azure_resource_group --no-wait
-
     - name: Echo variables
       run: |
         echo $azure_cdn_endpoint
         echo $azure_cdn_profile_name
         echo $azure_resource_group
+
+    - name: Purge CDN
+      #if: steps.apply.outputs.exit_code == 0
+      run: |
+        az cdn endpoint purge -n $($azure_cdn_endpoint) --profile-name $azure_cdn_profile_name --content-paths "/*" --resource-group $azure_resource_group --no-wait
 
       
     - name: Azure SP logout

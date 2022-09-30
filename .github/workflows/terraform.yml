@@ -49,9 +49,6 @@ on:
     branches: [ "main" ]
   pull_request:
 
-permissions:
-  contents: read
-
 jobs:
   terraform:
     name: 'Deploy Resume'
@@ -70,9 +67,10 @@ jobs:
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
+      uses: hashicorp/setup-terraform@v2
       with:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+        terraform_wrapper: false
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
@@ -91,5 +89,34 @@ jobs:
       # On push to "main", build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
+      id: apply
       if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
-      run: terraform apply -auto-approve -input=false
+      run: |
+        terraform apply -auto-approve -input=false
+      env:
+        TF_VAR_arm_secret: ${{ secrets.ARM_CLIENT_SECRET }}
+
+    - name: Get TF output variables
+      id: var
+      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push' && steps.apply.outputs.exit_code == 0
+      run: |
+        echo "::set-output name=azure_cdn_endpoint::$(terraform output azure_cdn_endpoint)"
+        echo "::set-output name=azure_cdn_profile_name::$(terraform output azure_cdn_profile_name)"
+        echo "::set-output name=azure_resource_group::$(terraform output azure_resource_group)"
+
+    - name: Azure SP login
+      uses: azure/login@v1
+      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push' && steps.apply.outputs.exit_code == 0
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Purge CDN
+      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push' && steps.apply.outputs.exit_code == 0
+      run: |
+        az cdn endpoint purge --name ${{ steps.var.outputs.azure_cdn_endpoint }} --profile-name ${{ steps.var.outputs.azure_cdn_profile_name }} --content-paths "/*" --resource-group ${{ steps.var.outputs.azure_resource_group }} --no-wait
+
+      
+    - name: Azure SP logout
+      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push' && steps.apply.outputs.exit_code == 0
+      run: |
+        az logout

@@ -22,3 +22,7 @@ variable "envname" { #name of the environment being deployed to
   type    = string
   default = "dev"
 }
+
+variable "arm_secret" {
+  type = string
+}

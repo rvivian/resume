@@ -73,6 +73,7 @@ jobs:
       uses: hashicorp/setup-terraform@v2
       with:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+        terraform_wrapper: false
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
@@ -104,7 +105,7 @@ jobs:
 
     - name: Purge CDN
       #if: steps.apply.outputs.exit_code == 0
-      run:
+      run: |
         az cdn endpoint purge -n ${{ steps.apply.outputs.azure_cdn_endpoint }} --profile-name ${{ steps.apply.outputs.azure_cdn_profile_name }} --content-paths "/*" --resource-group ${{ steps.apply.outputs.azure_resource_group }} --no-wait
 
       

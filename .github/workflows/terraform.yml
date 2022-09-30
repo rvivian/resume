@@ -117,7 +117,7 @@ jobs:
     - name: Purge CDN
       #if: steps.apply.outputs.exit_code == 0
       run: |
-        az cdn endpoint purge -name ${{ steps.var.outputs.azure_cdn_endpoint }} --profile-name ${{ steps.var.outputs.azure_cdn_profile_name }} --content-paths "/*" --resource-group ${{ steps.var.outputs.azure_resource_group }} --no-wait
+        az cdn endpoint purge --name ${{ steps.var.outputs.azure_cdn_endpoint }} --profile-name ${{ steps.var.outputs.azure_cdn_profile_name }} --content-paths "/*" --resource-group ${{ steps.var.outputs.azure_resource_group }} --no-wait
 
       
     - name: Azure SP logout

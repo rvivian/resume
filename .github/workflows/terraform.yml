@@ -101,7 +101,7 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Purge CDN
-      if: apply.
+      if: steps.apply.outputs.exit_code == 0
       run:
         az cdn endpoint purge -n ${{ steps.apply.output.azure_cdn_endpoint }} --profile-name ${{ steps.apply.output.azure_cdn_profile_name }} --content-paths "/*" --resource-group ${{ steps.apply.output.azure_resource_group }} --no-wait
 

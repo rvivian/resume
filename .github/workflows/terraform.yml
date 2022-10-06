@@ -98,7 +98,7 @@ jobs:
 
     - name: Get TF output variables
       id: var
-      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push' && steps.apply.outputs.exit_code == 0
+      #if: github.ref == 'refs/heads/"main"' && github.event_name == 'push' && steps.apply.outputs.exit_code == 0
       run: |
         echo "::set-output name=azure_cdn_endpoint::$(terraform output azure_cdn_endpoint)"
         echo "::set-output name=azure_cdn_profile_name::$(terraform output azure_cdn_profile_name)"
@@ -107,24 +107,24 @@ jobs:
 
     - name: Azure SP login
       uses: azure/login@v1
-      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push' && steps.apply.outputs.exit_code == 0
+      #if: github.ref == 'refs/heads/"main"' && github.event_name == 'push' && steps.apply.outputs.exit_code == 0
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Upload to blob storage
       uses: azure/CLI@v1
-      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push' && steps.apply.outputs.exit_code == 0
+      #if: github.ref == 'refs/heads/"main"' && github.event_name == 'push' && steps.apply.outputs.exit_code == 0
       with:
         inlineScript: |
           az storage blob upload-batch --account-name ${{ steps.var.outputs.azure_storage_account }} --auth-mode key -d '$web' -s /site_data/
 
     - name: Purge CDN
-      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push' && steps.apply.outputs.exit_code == 0
+      #if: github.ref == 'refs/heads/"main"' && github.event_name == 'push' && steps.apply.outputs.exit_code == 0
       run: |
         az cdn endpoint purge --name ${{ steps.var.outputs.azure_cdn_endpoint }} --profile-name ${{ steps.var.outputs.azure_cdn_profile_name }} --content-paths "/*" --resource-group ${{ steps.var.outputs.azure_resource_group }} --no-wait
 
       
     - name: Azure SP logout
-      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push' && steps.apply.outputs.exit_code == 0
+      #if: github.ref == 'refs/heads/"main"' && github.event_name == 'push' && steps.apply.outputs.exit_code == 0
       run: |
         az logout

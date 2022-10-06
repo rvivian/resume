@@ -116,7 +116,7 @@ jobs:
       #if: github.ref == 'refs/heads/"main"' && github.event_name == 'push' && steps.apply.outputs.exit_code == 0
       with:
         inlineScript: |
-          az storage blob upload-batch --account-name ${{ steps.var.outputs.azure_storage_account }} --auth-mode key -d '$web' -s /site_data/
+          az storage blob upload-batch --account-name ${{ steps.var.outputs.azure_storage_account }} --auth-mode key -d '$web' -s ./site_data/
 
     - name: Purge CDN
       #if: github.ref == 'refs/heads/"main"' && github.event_name == 'push' && steps.apply.outputs.exit_code == 0

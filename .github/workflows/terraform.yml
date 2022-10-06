@@ -113,6 +113,7 @@ jobs:
 
     - name: Upload to blob storage
       uses: azure/CLI@v1
+      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push' && steps.apply.outputs.exit_code == 0
       with:
         inlineScript: |
           az storage blob upload-batch --account-name ${{ steps.var.outputs.azure_storage_account }} --auth-mode key -d '$web' -s /site_data/

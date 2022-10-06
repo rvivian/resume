@@ -33,17 +33,6 @@ resource "azurerm_storage_account" "storage_account" {
   }
 }
 
-resource "azurerm_storage_blob" "blob" {
-  for_each = fileset(path.module, "site_data/*")
-
-  name                   = trimprefix(each.key, "site_data/")
-  storage_account_name   = azurerm_storage_account.storage_account.name
-  storage_container_name = "$web"
-  type                   = "Block"
-  content_md5            = filemd5(each.key)
-  source                 = each.key
-}
-
 resource "azurerm_cdn_profile" "cdn_profile" {
   name                = "${local.env_prefix}-cdnprofile"
   location            = "global"

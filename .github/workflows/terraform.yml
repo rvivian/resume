@@ -116,7 +116,7 @@ jobs:
       #if: github.ref == 'refs/heads/"main"' && github.event_name == 'push' && steps.apply.outputs.exit_code == 0
       with:
         inlineScript: |
-          az storage blob upload-batch --account-name ${{ steps.var.outputs.azure_storage_account }} --auth-mode key -d '$web' -s ./site_data/
+          az storage blob upload-batch --account-name ${{ steps.var.outputs.azure_storage_account }} --auth-mode key -d '$web' -s ./site_data/ --overwrite
 
     - name: Purge CDN
       #if: github.ref == 'refs/heads/"main"' && github.event_name == 'push' && steps.apply.outputs.exit_code == 0
@@ -128,3 +128,6 @@ jobs:
       #if: github.ref == 'refs/heads/"main"' && github.event_name == 'push' && steps.apply.outputs.exit_code == 0
       run: |
         az logout
+
+    - name: Check that content is correct
+      uses: cypress-io/gihub-action@v4

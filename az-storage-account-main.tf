@@ -64,3 +64,34 @@ resource "azurerm_cdn_endpoint_custom_domain" "custom_domain" {
     tls_version      = "TLS12"
   }
 }
+
+resource "azurerm_cosmosdb_account" "counter_db" {
+  name                = "${local.env_prefix}-account"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  offer_type          = "Standard"
+  capabilities {
+    name = "EnableServerless"
+  }
+  capabilities {
+    name = "EnableTable"
+  }
+  backup {
+    type               = "Periodic"
+    storage_redundancy = "Local"
+  }
+  geo_location {
+    location          = azurerm_resource_group.rg.location
+    failover_priority = 0
+  }
+  consistency_policy {
+    consistency_level = "Session"
+  }
+}
+
+resource "azurerm_cosmosdb_table" "counter_table" {
+  name                = "${local.env_prefix}-table"
+  resource_group_name = azurerm_resource_group.rg.name
+  account_name        = azurerm_cosmosdb_account.counter_db.name
+
+}

@@ -129,5 +129,5 @@ jobs:
       run: |
         az logout
 
-    - name: Check that content is correct
-      uses: cypress-io/github-action@v4
+    #- name: Check that content is correct
+    #  uses: cypress-io/github-action@v4

@@ -130,4 +130,4 @@ jobs:
         az logout
 
     - name: Check that content is correct
-      uses: cypress-io/gihub-action@v4
+      uses: cypress-io/github-action@v4

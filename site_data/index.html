@@ -1,104 +1,393 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="resume.css" />
-    <title>Rhyss Vivian's Resume</title>
-    <script src="main.js"></script>
-  </head>
-  <body>
-    <div id="header">
-      <h1>Rhyss <font class="alt">Vivian</font></h1>
-      <h2>Cloud Engineer</h2>
-    </div>
-    <hr />
-    <div class="left">
-      <h3 class="alt">Contact</h3>
-      <a href="mailto:rhyssv@gmail.com">rhyssv@gmail.com</a><br />
-      <a href="http://www.linkedin.com/in/rhyss-vivian">LinkedIn Profile</a>
-      <br /><br />
-      <h3 class="alt">Education</h3>
-      <b>University of Alaska Anchorage</b><br />
-      <font class="alt">BBA, Management Information Systems | <i class="alt">2015</i></font>
-      <br /><br />
-      <h3 class="alt">Certificates</h3>
-      <ul id="certs">
-        <li>Microsoft Azure Administrator</li>
-        <li>CCNP: Security</li>
-        <li>CCNA: Route & Switch</li>
-        <li>CompTIA: Security+</li>
-        <li>MCSA: Server 2012</li>
-      </ul>
-    </div>
-    <div class="right">
-      <h3 class="alt">Profile</h3>
-      Cloud and networking engineer with a keen eye for details and security.
-      Well versed in SAML and PKI authentication mechanisms.
-      <br /><br />
-      <h3 class="alt">Experience</h3>
-      <div>
-        <i>August 2018 - Present</i><br />
-        <b class="alt"
-          >Cloud Engineer | Chugach Government Solutions, LLC | Anchorage, AK</b
-        ><br />
-        <ul>
-          <li>
-            Engineered and maintained complex network structure in Azure
-            Government to support business operations
-          </li>
-          <li>
-            Initiated the use of Terraform for cloud infrastructure management.
-          </li>
-          <li>Automated network monitoring and changes with Python.</li>
-          <li>
-            Migrated enterprise from Azure and M365 to Azure Government and M365
-            Government tenants.
-          </li>
-          <li>
-            Worked on compliance requirements for network and cloud
-            infrastructure in order to meet NIST 800-171 SPRS and CMMCv2 up to
-            level 2.
-          </li>
-        </ul>
-      </div>
-      <div>
-        <i>September 2011 - August 2018</i><br />
-        <b class="alt"
-          >Network Administrator III | Ukpeagvik Inupiat Corporation |
-          Anchorage, AK</b
-        ><br />
-        <ul>
-          <li>
-            Implemented, managed, and upgraded advanced switching and routing
-            networks in multiple data centers, primary offices, and satellite
-            offices utilizing both Cisco and Juniper equipment.
-          </li>
-          <li>
-            Managed or assisted with various projects including: VMWare to
-            Hyper-V migration, enterprise MPLS provider transition, primary
-            datacenter firewall upgrades, asset management, unified
-            communications, datacenter migration, and transitioning from Windows
-            XP to 7 to 10.
-          </li>
-          <li>Primary administrator of SCCM infrastructure.</li>
-        </ul>
-      </div>
-      <div>
-        <i>October 2010 - September 2011</i><br />
-        <b class="alt">IT Technician | Adak Eagle Enterprises | Anchorage, AK</b
-        ><br />
-        <ul>
-          <li>
-            Managed projects aimed at implementing new services for customers on
-            the island of Adak, AK including: Data backup, network
-            installation/expansion, and LAN/WAN gaming.
-          </li>
-          <li>
-            Technical lead for troubleshooting issues in the office, as well as
-            for customers on the island.
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div id="footer">This page has been viewed <a id="counter"></a> times!</div>
-  </body>
+<!--[if IE 8 ]><html class="no-js oldie ie8" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="no-js oldie ie9" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+
+   <!--- basic page needs
+   ================================================== -->
+   <meta charset="utf-8">
+	<title>Rhyss Vivian Resume</title>
+	<meta name="description" content="">  
+	<meta name="author" content="">
+
+   <!-- mobile specific metas
+   ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+ 	<!-- CSS
+   ================================================== -->
+   <link rel="stylesheet" href="css/base.css">  
+   <link rel="stylesheet" href="css/main.css">
+   <link rel="stylesheet" href="css/vendor.css">     
+
+   <!-- script
+   ================================================== -->   
+	<script src="js/modernizr.js"></script>
+	<script src="js/pace.min.js"></script>
+	<script src="js/counter.js"></script>
+
+   <!-- favicons
+	================================================== -->
+	<link rel="icon" type="image/png" href="favicon.png">
+
+</head>
+
+<body id="top">
+
+	<!-- header 
+   ================================================== -->
+   <header>   	
+   	<div class="row">
+
+   		<div class="top-bar">
+   			<a class="menu-toggle" href="#"><span>Menu</span></a>
+
+	   		<div class="logo">
+		         <a href="index.html">Rhyss Vivian</a>
+		      </div>		      
+
+		   	<nav id="main-nav-wrap">
+					<ul class="main-navigation">
+						<li class="current"><a class="smoothscroll"  href="#intro" title="">Home</a></li>
+						<li><a class="smoothscroll"  href="#about" title="">About</a></li>
+						<li><a class="smoothscroll"  href="#resume" title="">Resume</a></li>				
+					</ul>
+				</nav>    		
+   		</div> <!-- /top-bar --> 
+   		
+   	</div> <!-- /row --> 		
+   </header> <!-- /header -->
+
+	<!-- intro section
+   ================================================== -->
+   <section id="intro">   
+
+   	<div class="intro-overlay"></div>	
+
+   	<div class="intro-content">
+   		<div class="row">
+
+   			<div class="col-twelve">
+
+	   			<h5>Hello, World.</h5>
+	   			<h1>I'm Rhyss Vivian.</h1>
+
+	   			<p class="intro-position">
+	   				<span>Cloud Architect</span>
+	   				<span>Network Engineer</span> 
+	   			</p>
+
+	   			<a class="button stroke smoothscroll" href="#about" title="">More About Me</a>
+
+	   		</div>  
+   			
+   		</div>   		 		
+   	</div> <!-- /intro-content --> 
+
+   	<ul class="intro-social">        
+         <li><a href="https://www.northof66.com"><i class="fa fa-globe"></i></a></li>
+         <li><a href="https://www.linkedin.com/in/rhyss-vivian/"><i class="fa fa-linkedin"></i></a></li>
+         <li><a href="https://github.com/rvivian/"><i class="fa fa-github"></i></a></li>
+         <li><a href="https://www.credly.com/users/rhyss-vivian/badges"><img src="images/credly-white.svg" width="28.2833" height="33"></img></a></li>
+      </ul> <!-- /intro-social -->      	
+
+   </section> <!-- /intro -->
+
+
+   <!-- about section
+   ================================================== -->
+   <section id="about">  
+
+   	<div class="row section-intro">
+   		<div class="col-twelve">
+
+   			<h5>About</h5>
+   			<h1>Let me introduce myself.</h1>
+
+   			<div class="intro-info">
+
+   				<img src="images/profile-pic.jpg" alt="Profile Picture">
+
+   				<p class="lead">Hi, I'm Rhyss Vivian, Cloud Engineer for Chugach Government Solutions and Owner of <a href="https://www.northof66.com">North of 66 Technical Services</a>.<br /><br />
+					I build this page as part of the <a href="https://github.com/rvivian/resume">Cloud Guru Azure Resume Challenge</a>.
+				</p>
+   			</div>   			
+
+   		</div>   		
+   	</div> <!-- /section-intro -->
+
+   	<div class="row button-section">
+   		<div class="col-twelve">
+   			<a href="mailto:rhyssv@gmail.com?subject=Lets talk about a job" title="Hire Me" class="button stroke smoothscroll">Hire Me</a>
+   			<a href="#" title="Download CV" class="button button-primary">Download CV</a>
+   		</div>   		
+   	</div>
+
+   </section> <!-- /process-->    
+
+
+   <!-- resume Section
+   ================================================== -->
+	<section id="resume" class="grey-section">
+
+   	<div class="row resume-timeline">
+
+   		<div class="col-twelve resume-header">
+
+   			<h2>Work Experience</h2>
+
+   		</div> <!-- /resume-header -->
+
+   		<div class="col-twelve">
+
+   			<div class="timeline-wrap">
+
+   				<div class="timeline-block">
+
+	   				<div class="timeline-ico">
+	   					<i class="fa fa-briefcase"></i>
+	   				</div>
+
+	   				<div class="timeline-header">
+	   					<h3>Cloud Engineer</h3>
+	   					<p>Aug 2018 - Present</p>
+	   				</div>
+
+	   				<div class="timeline-content">
+	   					<h4>Chugach Government Solutions</h4>
+						<p></p>
+	   				</div>
+
+	   			</div> <!-- /timeline-block -->
+
+	   			<div class="timeline-block">
+
+	   				<div class="timeline-ico">
+	   					<i class="fa fa-briefcase"></i>
+	   				</div>
+
+	   				<div class="timeline-header">
+	   					<h3>Network Administrator III</h3>
+	   					<p>Sep 2011 - Aug 2018</p>
+	   				</div>
+
+	   				<div class="timeline-content">
+	   					<h4>Ukpeagvik Inupiat Corporation</h4>
+						<p></p>
+	   				</div>
+
+	   			</div> <!-- /timeline-block -->
+
+   			</div> <!-- /timeline-wrap -->   			
+
+   		</div> <!-- /col-twelve -->
+   		
+   	</div> <!-- /resume-timeline -->
+   	
+   	<div class="row resume-timeline">
+
+   		<div class="col-twelve resume-header">
+
+   			<h2>Education</h2>
+
+   		</div> <!-- /resume-header -->
+
+   		<div class="col-twelve">
+
+   			<div class="timeline-wrap">
+
+   				<div class="timeline-block">
+
+	   				<div class="timeline-ico">
+	   					<i class="fa fa-graduation-cap"></i>
+	   				</div>
+
+	   				<div class="timeline-header">
+	   					<h3>BBA, Management Information Systems</h3>
+	   					<p>May 2015</p>
+	   				</div>
+
+	   				<div class="timeline-content">
+	   					<h4>University of Alaska, Anchorage</h4>
+	   				</div>
+
+	   			</div> <!-- /timeline-block -->
+
+   			</div> <!-- /timeline-wrap -->   			
+
+   		</div> <!-- /col-twelve -->
+		
+   		
+   	</div> <!-- /resume-timeline -->
+
+	   <div class="row resume-timeline">
+
+		<div class="col-twelve resume-header">
+
+			<h2>Certifications</h2>
+
+		</div> <!-- /resume-header -->
+
+		<div class="col-twelve">
+
+			<div class="timeline-wrap">
+
+				<div class="timeline-block">
+
+					<div class="timeline-ico">
+						<i class="fa fa-certificate"></i>
+					</div>
+
+					<div class="timeline-header">
+						<h3>Azure Administrator Associate</h3>
+						<p>Sep 2022 - Sep 2023</p>
+					</div>
+
+					<div class="timeline-content">
+						<h4>Microsoft</h4>
+						<p><a href="https://www.credly.com/badges/92269ed6-e524-4b9a-8cf3-463f616a0620">Credly Verification</a></p>
+					</div>
+
+				</div> <!-- /timeline-block -->
+
+				<div class="timeline-block">
+
+					<div class="timeline-ico">
+						<i class="fa fa-certificate"></i>
+					</div>
+
+					<div class="timeline-header">
+						<h3>CCNP: Security</h3>
+						<p>Feb 2021 - Feb 2024</p>
+					</div>
+
+					<div class="timeline-content">
+						<h4>Cisco</h4>
+						<p><a href="https://www.credly.com/badges/f526cfc9-78da-4d80-8e5c-7c1a725c742d">Credly Verification</a></p>
+					</div>
+
+				</div> <!-- /timeline-block -->
+
+				<div class="timeline-block">
+
+					<div class="timeline-ico">
+						<i class="fa fa-certificate"></i>
+					</div>
+
+					<div class="timeline-header">
+						<h3>CCNA: Route & Switch</h3>
+						<p>Feb 2020 - Feb 2024</p>
+					</div>
+
+					<div class="timeline-content">
+						<h4>Cisco</h4>
+						<p><a href="https://www.credly.com/badges/83cd46c1-23f7-4374-b492-9ba82e0f6410">Credly Verification</a></p>
+					</div>
+
+				</div> <!-- /timeline-block -->
+
+				<div class="timeline-block">
+
+					<div class="timeline-ico">
+						<i class="fa fa-certificate"></i>
+					</div>
+
+					<div class="timeline-header">
+						<h3>Security+</h3>
+						<p>Oct 2018 - Oct 2024</p>
+					</div>
+
+					<div class="timeline-content">
+						<h4>CompTIA</h4>
+						<p><a href="https://www.credly.com/badges/b6c63bba-4b21-4508-8494-759dd2c42d30">Credly Verification</a></p>
+					</div>
+
+				</div> <!-- /timeline-block -->
+
+			</div> <!-- /timeline-wrap -->   			
+
+		</div> <!-- /col-twelve -->
+	 
+		
+	</div> <!-- /resume-timeline -->
+		
+	</section> <!-- /features -->
+
+	<!-- stats Section
+   ================================================== -->
+	<section id="stats" class="count-up">
+
+		<div class="row">
+			<div class="col-twelve">
+
+
+					<div class="bgrid stat">
+
+						<div class="icon-part">
+							<i class="icon-eye"></i>
+						</div>
+
+						<h3 class="stat-count" id="counter">
+							0
+						</h3>
+
+						<h5 class="stat-title">
+							Visitors
+						</h5>
+
+					</div> <!-- /stat -->					
+
+
+			</div> <!-- /twelve -->
+		</div> <!-- /row -->
+
+	</section> <!-- /stats -->
+
+	
+	</section> <!-- /contact -->
+
+   <!-- footer
+   ================================================== -->
+
+   <footer>
+     	<div class="row">
+
+     		<div class="col-six tab-full pull-right social">
+
+     			<ul class="footer-social">        
+					<li><a href="https://www.northof66.com"><i class="fa fa-globe"></i></a></li>
+			      <li><a href="https://www.linkedin.com/in/rhyss-vivian/"><i class="fa fa-linkedin"></i></a></li>
+			      <li><a href="https://github.com/rvivian/"><i class="fa fa-github"></i></a></li>
+			      <li><a href="https://www.credly.com/users/rhyss-vivian/badges"><img src="images/credly-white.svg" width="18" height="21"></img></a></li>
+			   </ul> 
+	      		
+	      </div>
+
+      	<div class="col-six tab-full">
+	      	<div class="copyright">
+		        	<span>© Copyright Kards 2016.</span> 
+		        	<span>Design by <a href="http://www.styleshout.com/">styleshout</a></span>	         	
+		         </div>		                  
+	      	</div>
+
+	      	<div id="go-top">
+		         <a class="smoothscroll" title="Back to Top" href="#top"><i class="fa fa-long-arrow-up"></i></a>
+		      </div>
+
+      	</div> <!-- /row -->     	
+   </footer>  
+
+   <div id="preloader"> 
+    	<div id="loader"></div>
+   </div> 
+
+   <!-- Java Script
+   ================================================== --> 
+   <script src="js/jquery-2.1.3.min.js"></script>
+   <script src="js/plugins.js"></script>
+   <script src="js/main.js"></script>
+
+</body>
+
 </html>

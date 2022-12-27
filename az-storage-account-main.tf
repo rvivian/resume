@@ -77,7 +77,7 @@ resource "azurerm_cosmosdb_account" "counter_db" {
     name = "EnableTable"
   }
   backup {
-    type               = "Continuous"
+    type = "Continuous"
   }
   geo_location {
     location          = azurerm_resource_group.rg.location

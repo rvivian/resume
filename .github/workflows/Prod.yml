@@ -1,63 +1,15 @@
-# This workflow installs the latest version of Terraform CLI and configures the Terraform CLI configuration file
-# with an API token for Terraform Cloud (app.terraform.io). On pull request events, this workflow will run
-# `terraform init`, `terraform fmt`, and `terraform plan` (speculative plan via Terraform Cloud). On push events
-# to the "main" branch, `terraform apply` will be executed.
-#
-# Documentation for `hashicorp/setup-terraform` is located here: https://github.com/hashicorp/setup-terraform
-#
-# To use this workflow, you will need to complete the following setup steps.
-#
-# 1. Create a `main.tf` file in the root of this repository with the `remote` backend and one or more resources defined.
-#   Example `main.tf`:
-#     # The configuration for the `remote` backend.
-#     terraform {
-#       backend "remote" {
-#         # The name of your Terraform Cloud organization.
-#         organization = "example-organization"
-#
-#         # The name of the Terraform Cloud workspace to store Terraform state files in.
-#         workspaces {
-#           name = "example-workspace"
-#         }
-#       }
-#     }
-#
-#     # An example resource that does nothing.
-#     resource "null_resource" "example" {
-#       triggers = {
-#         value = "A example resource that does nothing!"
-#       }
-#     }
-#
-#
-# 2. Generate a Terraform Cloud user API token and store it as a GitHub secret (e.g. TF_API_TOKEN) on this repository.
-#   Documentation:
-#     - https://www.terraform.io/docs/cloud/users-teams-organizations/api-tokens.html
-#     - https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets
-#
-# 3. Reference the GitHub secret in step using the `hashicorp/setup-terraform` GitHub Action.
-#   Example:
-#     - name: Setup Terraform
-#       uses: hashicorp/setup-terraform@v1
-#       with:
-#         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-
 name: 'Deploy Resume'
 
 on:
   push:
-    branches-ignore:
+    branches:
       - "main"
-  pull_request:
-    types:
-      - closed
-  workflow_dispatch:
 
 jobs:
   terraform:
     name: 'Deploy Resume'
     runs-on: ubuntu-latest
-    environment: dev
+    environment: prod
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
@@ -94,7 +46,6 @@ jobs:
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
       id: apply
-      if: github.event.pull_request.merged == true
       run: |
         terraform apply -auto-approve -input=false
       env:
@@ -102,7 +53,7 @@ jobs:
 
     - name: Get TF output variables
       id: var
-      if: github.event.pull_request.merged == true && steps.apply.outputs.exit_code == 0
+      if: steps.apply.outputs.exit_code == 0
       run: |
         echo "{azure_cdn_endpoint}={$(terraform output azure_cdn_endpoint)}" >> $GITHUB_OUTPUT
         echo "{azure_cdn_profile_name}={$(terraform output azure_cdn_profile_name)}"  >> $GITHUB_OUTPUT
@@ -111,25 +62,25 @@ jobs:
 
     - name: Azure SP login
       uses: azure/login@v1
-      if: github.event.pull_request.merged == true && steps.apply.outputs.exit_code == 0
+      if: steps.apply.outputs.exit_code == 0
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Upload to blob storage
       uses: azure/CLI@v1
-      if: github.event.pull_request.merged == true && steps.apply.outputs.exit_code == 0
+      if: steps.apply.outputs.exit_code == 0
       with:
         inlineScript: |
           az storage blob upload-batch --account-name ${{ steps.var.outputs.azure_storage_account }} --auth-mode key -d '$web' -s ./site_data/ --overwrite
 
     - name: Purge CDN
-      if: github.event.pull_request.merged == true && steps.apply.outputs.exit_code == 0
+      if: steps.apply.outputs.exit_code == 0
       run: |
         az cdn endpoint purge --name ${{ steps.var.outputs.azure_cdn_endpoint }} --profile-name ${{ steps.var.outputs.azure_cdn_profile_name }} --content-paths "/*" --resource-group ${{ steps.var.outputs.azure_resource_group }} --no-wait
 
       
     - name: Azure SP logout
-      if: github.event.pull_request.merged == true && steps.apply.outputs.exit_code == 0
+      if: steps.apply.outputs.exit_code == 0
       run: |
         az logout
 

@@ -1,0 +1,93 @@
+name: 'Deploy Resume'
+
+on:
+  push:
+    branches-ignore:
+      - "main"
+  pull_request:
+    types:
+      - closed
+  workflow_dispatch:
+
+jobs:
+  terraform:
+    name: 'Deploy Resume'
+    runs-on: ubuntu-latest
+    environment: dev
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+        terraform_wrapper: false
+
+    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Terraform Init
+      run: terraform init
+
+    # Checks that all Terraform configuration files adhere to a canonical format
+    - name: Terraform Format
+      run: terraform fmt -check
+
+    # Generates an execution plan for Terraform
+    - name: Terraform Plan
+      run: terraform plan -input=false
+      env:
+        TF_VAR_arm_secret: ${{ secrets.ARM_CLIENT_SECRET }}
+
+      # On push to "main", build or change infrastructure according to Terraform configuration files
+      # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
+    - name: Terraform Apply
+      id: apply
+      if: github.event.pull_request.merged == true
+      run: |
+        terraform apply -auto-approve -input=false
+      env:
+        TF_VAR_arm_secret: ${{ secrets.ARM_CLIENT_SECRET }}
+
+    - name: Get TF output variables
+      id: var
+      if: github.event.pull_request.merged == true && steps.apply.outputs.exit_code == 0
+      run: |
+        echo "{azure_cdn_endpoint}={$(terraform output azure_cdn_endpoint)}" >> $GITHUB_OUTPUT
+        echo "{azure_cdn_profile_name}={$(terraform output azure_cdn_profile_name)}"  >> $GITHUB_OUTPUT
+        echo "{azure_resource_group}={$(terraform output azure_resource_group)}"  >> $GITHUB_OUTPUT
+        echo "{azure_storage_account}={$(terraform output azure_storage_account)}" >> $GITHUB_OUTPUT
+
+    - name: Azure SP login
+      uses: azure/login@v1
+      if: github.event.pull_request.merged == true && steps.apply.outputs.exit_code == 0
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Upload to blob storage
+      uses: azure/CLI@v1
+      if: github.event.pull_request.merged == true && steps.apply.outputs.exit_code == 0
+      with:
+        inlineScript: |
+          az storage blob upload-batch --account-name ${{ steps.var.outputs.azure_storage_account }} --auth-mode key -d '$web' -s ./site_data/ --overwrite
+
+    - name: Purge CDN
+      if: github.event.pull_request.merged == true && steps.apply.outputs.exit_code == 0
+      run: |
+        az cdn endpoint purge --name ${{ steps.var.outputs.azure_cdn_endpoint }} --profile-name ${{ steps.var.outputs.azure_cdn_profile_name }} --content-paths "/*" --resource-group ${{ steps.var.outputs.azure_resource_group }} --no-wait
+
+      
+    - name: Azure SP logout
+      if: github.event.pull_request.merged == true && steps.apply.outputs.exit_code == 0
+      run: |
+        az logout
+
+    #- name: Check that content is correct
+    #  uses: cypress-io/github-action@v4

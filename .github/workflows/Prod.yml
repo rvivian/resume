@@ -3,7 +3,7 @@ name: 'Deploy Resume - Prod'
 on:
   push:
     branches:
-      - "main"
+      - "prod"
 
 jobs:
   terraform:

@@ -11,6 +11,7 @@
 		}
 	],
 	"settings": {
-		"debug.internalConsoleOptions": "neverOpen"
+		"debug.internalConsoleOptions": "neverOpen",
+		"ansible.python.interpreterPath": "c:\\Users\\rhyss\\resume\\.venv\\Scripts\\python.exe"
 	}
 }

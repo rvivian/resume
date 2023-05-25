@@ -13,7 +13,7 @@
     </div>
     <span class="block uppercase">{award.title}</span>
     <span class="block issued-by">{award.issuedBy}</span>
-    <div class="description">{award.description}</div>
+    <div class="description"><a href={award.uri}>Credly Verification</a></div>
 </div>
 
 <style>

@@ -5,8 +5,8 @@
   import Experience from '../components/pages/Resume/Experience.svelte';
   import Education from '../components/pages/Resume/Education.svelte';
   import Award from '../components/pages/Resume/Award.svelte';
-  import Academic from '../components/pages/Resume/Academic.svelte';
-  import ProgressBar from '../components/ProgressBar.svelte';
+//   import Academic from '../components/pages/Resume/Academic.svelte';
+//   import ProgressBar from '../components/ProgressBar.svelte';
 </script>
 
 <div class="resume-container">
@@ -17,20 +17,6 @@
                     <div>
                         {#each resume.experience.data as experience}
                             <Experience {experience}/>
-                        {/each}
-                    </div>
-                </Section>
-            </Card>
-        </section>
-    {/if}
-
-    {#if !!resume.education}
-        <section>
-            <Card>
-                <Section item={resume.education}>
-                    <div>
-                        {#each resume.education.data as education}
-                            <Education {education}/>
                         {/each}
                     </div>
                 </Section>
@@ -52,7 +38,23 @@
         </section>
     {/if}
 
-    {#if !!resume.academic}
+    {#if !!resume.education}
+        <section>
+            <Card>
+                <Section item={resume.education}>
+                    <div>
+                        {#each resume.education.data as education}
+                            <Education {education}/>
+                        {/each}
+                    </div>
+                </Section>
+            </Card>
+        </section>
+    {/if}
+
+    
+
+    <!-- {#if !!resume.academic}
         <section>
             <Card>
                 <Section item={resume.academic}>
@@ -64,9 +66,9 @@
                 </Section>
             </Card>
         </section>
-    {/if}
+    {/if} -->
 
-    {#if !!resume.skills}
+    <!-- {#if !!resume.skills}
         <span class="block bold mt-2 mb-2 " style="width: 100%">Skills</span>
 
         {#each resume.skills as skillData}
@@ -85,7 +87,7 @@
                 </Card>
             </section>
         {/each}
-    {/if}
+    {/if} -->
 </div>
 
 <style>

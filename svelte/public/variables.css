@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins');
 
 :root {
-    --primary: #f44b5a;
+    /* --primary: #2ca128; */
+    --primary: #648276;
 
     --background: #31313a;
     --mid-dark-background: #16161a;

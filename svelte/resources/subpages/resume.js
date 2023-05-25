@@ -8,18 +8,25 @@ export default {
     icon: 'mdi-tie',
     data: [
       {
-        title: 'Spider-Man',
-        start: '06/2010',
+        title: 'Owner',
+        start: '10/2018',
         end: 'present',
-        company: 'Spider-Verse',
-        description: 'Swinging from building to building, fighting bad guys and making a difference in the world.'
+        company: 'North of 66',
+        description: 'Offering technical leadership and site services for small businesses.'
       },
       {
-        title: 'Journalist',
-        start: '06/2010',
+        title: 'Cloud Engineer',
+        start: '08/2018',
         end: 'present',
-        company: 'Freelance',
-        description: 'Taking selfies secretly and selling them to newspapers, it\s a win win, right?'
+        company: 'Chugach Government Solutions, LLC',
+        description: 'Managed Azure and enterprise network services. Acted as senior escalation point when issues arose.'
+      },
+      {
+        title: 'Network Admininistrator III',
+        start: '09/2011',
+        end: '08/2018',
+        company: 'Ukpeagvik Inupiat Corporation',
+        description: 'Migrated from Cisco to Juniper network devices. Migrated MPLS network services from one provider to another across 20+ sites and two datacenters.'
       },
     ]
   },
@@ -28,11 +35,11 @@ export default {
     icon: 'mdi-school',
     data: [
       {
-        major: 'Journalism',
-        start: '09/2014',
-        end: '07/2018',
-        institute: 'High School',
-        description: 'Hanging out with Ned and MJ, throwing house parties, city parties and all kind of parties.'
+        major: 'BBA, Management Information Systems',
+        // start: '09/2014',
+        end: '05/2015',
+        institute: 'University of Alaska, Anchorage',
+        description: 'Heavily focused on project management. Spent three semesters taking a project from design to implementation.'
       },
     ]
   },
@@ -41,16 +48,28 @@ export default {
     icon: 'mdi-medal',
     data: [
       {
-        title: 'Key of LA',
-        date: '14/07/2020',
-        issuedBy: 'Los Angeles Major',
-        description: 'I was honered to be given the key to the city by the Los Angeles Major. #goals'
+        title: 'Azure Administrator Associate',
+        date: '09/2022',
+        issuedBy: 'Microsoft',
+        uri: 'https://www.credly.com/badges/92269ed6-e524-4b9a-8cf3-463f616a0620'
       },
       {
-        title: 'Best Costume',
-        date: '19/12/2019',
-        issuedBy: 'Marvel Comics',
-        description: 'Got the award for the best costume ever made on Marvel Comics, gotta love it.'
+        title: 'CCNP: Security',
+        date: '02/2021',
+        issuedBy: 'Cisco',
+        uri: 'https://www.credly.com/badges/f526cfc9-78da-4d80-8e5c-7c1a725c742d'
+      },
+      {
+        title: 'CCNA: Route & Switch',
+        date: '02/2020',
+        issuedBy: 'Cisco',
+        uri: 'https://www.credly.com/badges/83cd46c1-23f7-4374-b492-9ba82e0f6410'
+      },
+      {
+        title: 'Security+',
+        date: '10/2018',
+        issuedBy: 'CompTIA',
+        uri: 'https://www.credly.com/badges/b6c63bba-4b21-4508-8494-759dd2c42d30'
       },
     ]
   },

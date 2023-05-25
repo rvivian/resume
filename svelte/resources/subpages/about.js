@@ -1,25 +1,25 @@
 export default {
   name: 'about', // do not change
   pageTitle: 'About',
-  icon: 'mdi-account-cowboy-hat',
+  icon: 'mdi-account-tie',
 
-  greeting: 'Hello, I am Peter Parker.',
-  description: 'American teenager Peter Parker, a poor sickly orphan, is bitten by a radioactive spider. As a result of the bite, he gains superhuman strength, speed, and agility, along with the ability to cling to walls, turning him into Spider-Man.',
-  birthYear: '1996',
+  greeting: 'Hello, I am Rhyss Vivian.',
+  description: 'I am a Cloud Engineer for Chugach Government Solutions, and Owner of North of 66. I built this page as part of the Cloud Resume Challenge.',
+  birthYear: '1988',
   residence: 'USA',
   freelance: 'Unavailable',
-  address: 'Los Angeles, CA',
-  quote: 'An ambitious man either wins or learns.',
+  address: 'Anchorage, AK',
+  quote: 'Engineering is the closest thing to magic that exists in the world.',
   hobbies: [
     {
-      title: 'Table Tennis',
-      icon: 'mdi-table-tennis',
-      description: 'A terrific game to play, keeps one\'s mind sharp and ready.'
+      title: 'Running',
+      icon: 'mdi-run-fast',
+      description: 'Keeps me active and my brain engergized.'
     },
     {
-      title: 'Football',
-      icon: 'mdi-soccer',
-      description: 'Who would not enjoy a match with friends on a friday evening?'
+      title: 'Hiking',
+      icon: 'mdi-hiking',
+      description: 'Who would not enjoy getting out and seeing the wonders of nature?'
     },
   ]
 };

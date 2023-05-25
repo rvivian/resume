@@ -10,7 +10,7 @@
 
 <div class="education mt-2 mb-2">
     <div>
-        <span class="duration">{education.start} - {education.end}</span>
+        <span class="duration"><!--{education.start} - -->{education.end}</span>
     </div>
     <span class="block uppercase">{education.major}</span>
     <span class="block institute">{education.institute}</span>

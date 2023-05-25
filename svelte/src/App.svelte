@@ -4,7 +4,7 @@
   import Profile from './pages/Profile.svelte';
   import Drawer from './components/Drawer.svelte';
   import {favicon, title, meta} from '../resources/miscellaneous';
-  import Copyright from './components/Copyright.svelte';
+//   import Copyright from './components/Copyright.svelte';
 </script>
 
 <svelte:head>
@@ -24,7 +24,7 @@
         <Drawer/>
     </div>
 </main>
-<Copyright />
+<!-- <Copyright /> -->
 
 <style>
     main {
